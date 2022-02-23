@@ -1,7 +1,7 @@
 package lucene.index;
 
-import java.io.File;
-import java.util.LinkedList;
+//import java.io.File;
+//import java.util.LinkedList;
 
 public class Index {
 

@@ -3,14 +3,14 @@ package lucene.analyzer;
 import java.util.Set;
 
 import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.CharArraySet;
-import org.apache.lucene.analysis.TokenStream;
+//import org.apache.lucene.analysis.CharArraySet;
+//import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.Tokenizer;
 import org.apache.lucene.analysis.core.StopFilter;
-import org.apache.lucene.analysis.miscellaneous.LengthFilter;
+//import org.apache.lucene.analysis.miscellaneous.LengthFilter;
 
-import lucene.NumericFilter;
-import lucene.ProgramLanguageSyntaxFilter;
+//import lucene.NumericFilter;
+//import lucene.ProgramLanguageSyntaxFilter;
 import lucene.tokenizer.SourceFileTokenizer;
 
 public class SourceFileAnalyzer extends Analyzer {

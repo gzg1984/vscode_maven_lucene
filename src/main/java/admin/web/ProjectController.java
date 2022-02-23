@@ -18,22 +18,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.beans.factory.annotation.Autowired;
 
-import admin.domain.project;
+//import admin.domain.project;
 import admin.domain.projectWithBLOBs;
 
 
-import admin.web.projectService;
+//import admin.web.projectService;
 
 
 /* for add project */
 import util.FileUploadUtil;
 import model.UploadResult;
-import java.io.File;
+//import java.io.File;
 import java.io.IOException;
 import org.apache.log4j.Logger;
-import java.util.UUID;
+//import java.util.UUID;
 import java.util.LinkedList;
 import java.sql.SQLException;
 /* for add project, file manager*/
