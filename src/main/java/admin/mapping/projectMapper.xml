@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="admin.IDao.projectMapper">
+  <resultMap id="BaseResultMap" type="admin.domain.project">
+    <id column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="download_count" jdbcType="INTEGER" property="downloadCount" />
+    <result column="visit_count" jdbcType="INTEGER" property="visitCount" />
+    <result column="is_show" jdbcType="CHAR" property="isShow" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="index_path" jdbcType="VARCHAR" property="indexPath" />
+    <result column="zip_url" jdbcType="VARCHAR" property="zipUrl" />
+    <result column="title_en" jdbcType="VARCHAR" property="titleEn" />
+    <result column="status" jdbcType="CHAR" property="status" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="admin.domain.projectWithBLOBs">
+    <result column="desc" jdbcType="LONGVARCHAR" property="desc" />
+    <result column="source_from" jdbcType="LONGVARCHAR" property="sourceFrom" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    project_id, title, download_count, visit_count, is_show, add_time, index_path, zip_url, 
+    title_en, status
+  </sql>
+  <sql id="Blob_Column_List">
+    `desc`, source_from
+  </sql>
+  <select id="getAllprojects"  resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+      from tb_project_base
+  </select>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tb_project_base
+    where project_id = #{projectId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_project_base
+    where project_id = #{projectId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="admin.domain.projectWithBLOBs">
+    insert into tb_project_base (project_id, title, download_count, 
+      visit_count, is_show, add_time, 
+      index_path, zip_url, title_en, 
+      status, desc, source_from
+      )
+    values (#{projectId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{downloadCount,jdbcType=INTEGER}, 
+      #{visitCount,jdbcType=INTEGER}, #{isShow,jdbcType=CHAR}, #{addTime,jdbcType=TIMESTAMP}, 
+      #{indexPath,jdbcType=VARCHAR}, #{zipUrl,jdbcType=VARCHAR}, #{titleEn,jdbcType=VARCHAR}, 
+      #{status,jdbcType=CHAR}, #{desc,jdbcType=LONGVARCHAR}, #{sourceFrom,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="admin.domain.projectWithBLOBs">
+    insert into tb_project_base
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="downloadCount != null">
+        download_count,
+      </if>
+      <if test="visitCount != null">
+        visit_count,
+      </if>
+      <if test="isShow != null">
+        is_show,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+      <if test="indexPath != null">
+        index_path,
+      </if>
+      <if test="zipUrl != null">
+        zip_url,
+      </if>
+      <if test="titleEn != null">
+        title_en,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="desc != null">
+        desc,
+      </if>
+      <if test="sourceFrom != null">
+        source_from,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="projectId != null">
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="downloadCount != null">
+        #{downloadCount,jdbcType=INTEGER},
+      </if>
+      <if test="visitCount != null">
+        #{visitCount,jdbcType=INTEGER},
+      </if>
+      <if test="isShow != null">
+        #{isShow,jdbcType=CHAR},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="indexPath != null">
+        #{indexPath,jdbcType=VARCHAR},
+      </if>
+      <if test="zipUrl != null">
+        #{zipUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="titleEn != null">
+        #{titleEn,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="desc != null">
+        #{desc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="sourceFrom != null">
+        #{sourceFrom,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="admin.domain.projectWithBLOBs">
+    update tb_project_base
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="downloadCount != null">
+        download_count = #{downloadCount,jdbcType=INTEGER},
+      </if>
+      <if test="visitCount != null">
+        visit_count = #{visitCount,jdbcType=INTEGER},
+      </if>
+      <if test="isShow != null">
+        is_show = #{isShow,jdbcType=CHAR},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="indexPath != null">
+        index_path = #{indexPath,jdbcType=VARCHAR},
+      </if>
+      <if test="zipUrl != null">
+        zip_url = #{zipUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="titleEn != null">
+        title_en = #{titleEn,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=CHAR},
+      </if>
+      <if test="desc != null">
+        desc = #{desc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="sourceFrom != null">
+        source_from = #{sourceFrom,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where project_id = #{projectId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="admin.domain.projectWithBLOBs">
+    update tb_project_base
+    set title = #{title,jdbcType=VARCHAR},
+      download_count = #{downloadCount,jdbcType=INTEGER},
+      visit_count = #{visitCount,jdbcType=INTEGER},
+      is_show = #{isShow,jdbcType=CHAR},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      index_path = #{indexPath,jdbcType=VARCHAR},
+      zip_url = #{zipUrl,jdbcType=VARCHAR},
+      title_en = #{titleEn,jdbcType=VARCHAR},
+      status = #{status,jdbcType=CHAR},
+      desc = #{desc,jdbcType=LONGVARCHAR},
+      source_from = #{sourceFrom,jdbcType=LONGVARCHAR}
+    where project_id = #{projectId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="admin.domain.project">
+    update tb_project_base
+    set title = #{title,jdbcType=VARCHAR},
+      download_count = #{downloadCount,jdbcType=INTEGER},
+      visit_count = #{visitCount,jdbcType=INTEGER},
+      is_show = #{isShow,jdbcType=CHAR},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      index_path = #{indexPath,jdbcType=VARCHAR},
+      zip_url = #{zipUrl,jdbcType=VARCHAR},
+      title_en = #{titleEn,jdbcType=VARCHAR},
+      status = #{status,jdbcType=CHAR}
+    where project_id = #{projectId,jdbcType=INTEGER}
+  </update>
+  
+  <insert id="addProjectBase" parameterType="admin.domain.projectWithBLOBs"  keyProperty="projectId">
+         INSERT INTO `tb_project_base` (
+             `title`,
+             `title_en`,
+             `desc`,
+             `source_from`,
+             `download_count`,
+             `visit_count`,
+             `is_show`,
+             `add_time`,
+             `index_path`,
+             `zip_url`,
+             status
+         )
+         VALUES
+             (
+                 #{title},
+                 #{titleEn},
+                 #{desc},
+                 #{sourceFrom},
+                 0,
+                 0,
+                 #{isShow},
+                 now(),
+                 #{indexPath},
+                 #{zipUrl},
+                 #{status}
+             );
+     </insert>
+       <insert id="addProjectFile" parameterType="admin.domain.file" keyProperty="fileId">
+         INSERT INTO `tb_project_file` (
+             uuid,
+             `parent_uuid`,
+             `file_path`,
+             `file_type`,
+             `file_size`,
+             `project_id`,
+             `file_name`,
+             visit_count
+         )
+         VALUES
+             (
+                 #{uuid},
+                 #{parentUuid},
+                 #{filePath},
+                 #{fileType},
+                 #{fileSize},
+                 #{projectId},
+                 #{fileName},
+                 0
+             );
+     </insert>
+  
+</mapper>

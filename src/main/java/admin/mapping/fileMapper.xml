@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="admin.IDao.fileMapper">
+  <resultMap id="BaseResultMap" type="admin.domain.file">
+    <id column="file_id" jdbcType="INTEGER" property="fileId" />
+    <result column="uuid" jdbcType="VARCHAR" property="uuid" />
+    <result column="parent_uuid" jdbcType="VARCHAR" property="parentUuid" />
+    <result column="file_path" jdbcType="VARCHAR" property="filePath" />
+    <result column="file_type" jdbcType="CHAR" property="fileType" />
+    <result column="file_size" jdbcType="BIGINT" property="fileSize" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="file_name" jdbcType="VARCHAR" property="fileName" />
+    <result column="visit_count" jdbcType="INTEGER" property="visitCount" />
+    <result column="last_comment_time" jdbcType="TIMESTAMP" property="lastCommentTime" />
+    <result column="comment_count" jdbcType="INTEGER" property="commentCount" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    file_id, uuid, parent_uuid, file_path, file_type, file_size, project_id, file_name, 
+    visit_count, last_comment_time, comment_count
+  </sql>
+  <select id="selectByExample" parameterType="admin.domain.fileExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tb_project_file
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_project_file
+    where file_id = #{fileId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_project_file
+    where file_id = #{fileId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="admin.domain.fileExample">
+    delete from tb_project_file
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="admin.domain.file">
+    insert into tb_project_file (file_id, uuid, parent_uuid, 
+      file_path, file_type, file_size, 
+      project_id, file_name, visit_count, 
+      last_comment_time, comment_count)
+    values (#{fileId,jdbcType=INTEGER}, #{uuid,jdbcType=VARCHAR}, #{parentUuid,jdbcType=VARCHAR}, 
+      #{filePath,jdbcType=VARCHAR}, #{fileType,jdbcType=CHAR}, #{fileSize,jdbcType=BIGINT}, 
+      #{projectId,jdbcType=INTEGER}, #{fileName,jdbcType=VARCHAR}, #{visitCount,jdbcType=INTEGER}, 
+      #{lastCommentTime,jdbcType=TIMESTAMP}, #{commentCount,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="admin.domain.file">
+    insert into tb_project_file
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="fileId != null">
+        file_id,
+      </if>
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="parentUuid != null">
+        parent_uuid,
+      </if>
+      <if test="filePath != null">
+        file_path,
+      </if>
+      <if test="fileType != null">
+        file_type,
+      </if>
+      <if test="fileSize != null">
+        file_size,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="fileName != null">
+        file_name,
+      </if>
+      <if test="visitCount != null">
+        visit_count,
+      </if>
+      <if test="lastCommentTime != null">
+        last_comment_time,
+      </if>
+      <if test="commentCount != null">
+        comment_count,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="fileId != null">
+        #{fileId,jdbcType=INTEGER},
+      </if>
+      <if test="uuid != null">
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="parentUuid != null">
+        #{parentUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="filePath != null">
+        #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null">
+        #{fileType,jdbcType=CHAR},
+      </if>
+      <if test="fileSize != null">
+        #{fileSize,jdbcType=BIGINT},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="fileName != null">
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="visitCount != null">
+        #{visitCount,jdbcType=INTEGER},
+      </if>
+      <if test="lastCommentTime != null">
+        #{lastCommentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="commentCount != null">
+        #{commentCount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="admin.domain.fileExample" resultType="java.lang.Long">
+    select count(*) from tb_project_file
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_project_file
+    <set>
+      <if test="record.fileId != null">
+        file_id = #{record.fileId,jdbcType=INTEGER},
+      </if>
+      <if test="record.uuid != null">
+        uuid = #{record.uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentUuid != null">
+        parent_uuid = #{record.parentUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filePath != null">
+        file_path = #{record.filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileType != null">
+        file_type = #{record.fileType,jdbcType=CHAR},
+      </if>
+      <if test="record.fileSize != null">
+        file_size = #{record.fileSize,jdbcType=BIGINT},
+      </if>
+      <if test="record.projectId != null">
+        project_id = #{record.projectId,jdbcType=INTEGER},
+      </if>
+      <if test="record.fileName != null">
+        file_name = #{record.fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.visitCount != null">
+        visit_count = #{record.visitCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.lastCommentTime != null">
+        last_comment_time = #{record.lastCommentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.commentCount != null">
+        comment_count = #{record.commentCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_project_file
+    set file_id = #{record.fileId,jdbcType=INTEGER},
+      uuid = #{record.uuid,jdbcType=VARCHAR},
+      parent_uuid = #{record.parentUuid,jdbcType=VARCHAR},
+      file_path = #{record.filePath,jdbcType=VARCHAR},
+      file_type = #{record.fileType,jdbcType=CHAR},
+      file_size = #{record.fileSize,jdbcType=BIGINT},
+      project_id = #{record.projectId,jdbcType=INTEGER},
+      file_name = #{record.fileName,jdbcType=VARCHAR},
+      visit_count = #{record.visitCount,jdbcType=INTEGER},
+      last_comment_time = #{record.lastCommentTime,jdbcType=TIMESTAMP},
+      comment_count = #{record.commentCount,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="admin.domain.file">
+    update tb_project_file
+    <set>
+      <if test="uuid != null">
+        uuid = #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="parentUuid != null">
+        parent_uuid = #{parentUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="filePath != null">
+        file_path = #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null">
+        file_type = #{fileType,jdbcType=CHAR},
+      </if>
+      <if test="fileSize != null">
+        file_size = #{fileSize,jdbcType=BIGINT},
+      </if>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="fileName != null">
+        file_name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="visitCount != null">
+        visit_count = #{visitCount,jdbcType=INTEGER},
+      </if>
+      <if test="lastCommentTime != null">
+        last_comment_time = #{lastCommentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="commentCount != null">
+        comment_count = #{commentCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where file_id = #{fileId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="admin.domain.file">
+    update tb_project_file
+    set uuid = #{uuid,jdbcType=VARCHAR},
+      parent_uuid = #{parentUuid,jdbcType=VARCHAR},
+      file_path = #{filePath,jdbcType=VARCHAR},
+      file_type = #{fileType,jdbcType=CHAR},
+      file_size = #{fileSize,jdbcType=BIGINT},
+      project_id = #{projectId,jdbcType=INTEGER},
+      file_name = #{fileName,jdbcType=VARCHAR},
+      visit_count = #{visitCount,jdbcType=INTEGER},
+      last_comment_time = #{lastCommentTime,jdbcType=TIMESTAMP},
+      comment_count = #{commentCount,jdbcType=INTEGER}
+    where file_id = #{fileId,jdbcType=INTEGER}
+  </update>
+</mapper>
